@@ -1,0 +1,54 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import { add, calculate, divide, multiply, power, remainder, subtract, average } from '../src/calculator.js';
+
+test('throws when calculating remainder with zero', () => {
+  assert.throws(() => remainder(12, 0), {
+    name: 'RangeError',
+    message: 'Cannot calculate remainder with zero.',
+  });
+});
+
+test('calculates remainder for positive, negative, and decimal operands', () => {
+  assert.equal(remainder(12, 5), 2);
+  assert.equal(remainder(-12, 5), -2);
+  assert.equal(remainder(5.5, 2), 1.5);
+});
+
+test('adds two non-zero values', () => assert.equal(add(12, 3), 15));
+
+test('subtracts two non-zero values', () => assert.equal(subtract(12, 3), 9));
+
+test('multiplies two non-zero values', () => assert.equal(multiply(12, 3), 36));
+
+test('divides two non-zero values', () => assert.equal(divide(12, 3), 4));
+
+test('raises a base to positive, negative, fractional, and zero exponents', () => {
+  assert.equal(power(2, 3), 8);
+  assert.equal(power(2, -2), 0.25);
+  assert.equal(power(9, 0.5), 3);
+  assert.equal(power(5, 0), 1);
+});
+
+test('calculates average for positive, negative, mixed-sign, decimal, and zero values', () => {
+  assert.equal(average(10, 20), 15);
+  assert.equal(average(-10, -20), -15);
+  assert.equal(average(10, -20), -5);
+  assert.equal(average(2.5, 3.5), 3);
+  assert.equal(average(0, 0), 0);
+  assert.equal(average(5, 0), 2.5);
+});
+
+test('dispatches all seven supported operations', () => {
+  assert.equal(calculate('add', 12, 3), 15);
+  assert.equal(calculate('subtract', 12, 3), 9);
+  assert.equal(calculate('multiply', 12, 3), 36);
+  assert.equal(calculate('divide', 12, 3), 4);
+  assert.equal(calculate('power', 2, 3), 8);
+  assert.equal(calculate('remainder', 12, 5), 2);
+  assert.equal(calculate('average', 10, 20), 15);
+});
+
+test('throws a clear Unknown operation error', () => {
+  assert.throws(() => calculate('unknown', 12, 3), /Unknown operation/);
+});
