@@ -28,6 +28,10 @@ export function average(left, right) {
   return (left + right) / 2;
 }
 
+export function minimum(left, right) {
+  return Math.min(left, right);
+}
+
 export function calculate(operation, left, right) {
   switch (operation) {
     case 'add': return add(left, right);
@@ -37,6 +41,7 @@ export function calculate(operation, left, right) {
     case 'power': return power(left, right);
     case 'remainder': return remainder(left, right);
     case 'average': return average(left, right);
+    case 'minimum': return minimum(left, right);
     default: throw new Error('Unknown operation');
   }
 }
