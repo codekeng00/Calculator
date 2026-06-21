@@ -9,5 +9,3 @@ npm install
 npm test
 npm run dev
 ```
-
-The baseline is green and includes arithmetic operations, regression tests, push and pull-request CI, and a manually dispatched GitHub Pages deployment workflow. Create a scoped GitHub issue with acceptance criteria, then select that issue in Auto Dev when you are ready to test the agents.
