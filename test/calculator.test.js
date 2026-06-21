@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { add, calculate, divide, multiply, power, remainder, subtract, average } from '../src/calculator.js';
+import { add, calculate, divide, multiply, power, remainder, subtract, average, minimum } from '../src/calculator.js';
 
 test('throws when calculating remainder with zero', () => {
   assert.throws(() => remainder(12, 0), {
@@ -39,7 +39,31 @@ test('calculates average for positive, negative, mixed-sign, decimal, and zero v
   assert.equal(average(5, 0), 2.5);
 });
 
-test('dispatches all seven supported operations', () => {
+test('returns the smaller of two positive values', () => {
+  assert.equal(minimum(12, 3), 3);
+});
+
+test('returns the smaller of two negative values', () => {
+  assert.equal(minimum(-12, -3), -12);
+});
+
+test('returns the value when inputs are equal', () => {
+  assert.equal(minimum(5, 5), 5);
+});
+
+test('returns the smaller of two decimal values', () => {
+  assert.equal(minimum(2.5, 3.5), 2.5);
+});
+
+test('returns the smaller when one input is zero', () => {
+  assert.equal(minimum(0, 5), 0);
+});
+
+test('returns the smaller when one input is zero and negative', () => {
+  assert.equal(minimum(-5, 0), -5);
+});
+
+test('dispatches all supported operations', () => {
   assert.equal(calculate('add', 12, 3), 15);
   assert.equal(calculate('subtract', 12, 3), 9);
   assert.equal(calculate('multiply', 12, 3), 36);
@@ -47,6 +71,7 @@ test('dispatches all seven supported operations', () => {
   assert.equal(calculate('power', 2, 3), 8);
   assert.equal(calculate('remainder', 12, 5), 2);
   assert.equal(calculate('average', 10, 20), 15);
+  assert.equal(calculate('minimum', 12, 3), 3);
 });
 
 test('throws a clear Unknown operation error', () => {
